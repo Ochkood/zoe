@@ -20,6 +20,8 @@ model Booking {
   guests    String   @default("1") // Хүний тоо (String нь илүү уян хатан: "2 том 1 хүүхэд" г.м)
   notes     String?  // Нэмэлт мэдээлэл (Байхгүй байж болно - Optional)
 
+  duration  Int      @default(60)
+
   status    String   @default("pending")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

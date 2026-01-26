@@ -1,23 +1,97 @@
 'use server'
-import { prisma } from '@/lib/prisma' // <-- Шинэ импорт
-import { revalidatePath } from 'next/cache'
 
-// Цаг захиалах функц (Хэвээрээ)
+import { Resend } from 'resend'; // 👈 1. Import нэмэх
+import { EmailTemplate } from '@/components/email-template'; // 👈 2. Template нэмэх
+import { AdminEmailTemplate } from '@/components/admin-email-template';
+import { format } from 'date-fns';
+import { prisma } from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
+import { auth } from "@clerk/nextjs/server";
+
+const resend = new Resend(process.env.RESEND_API_KEY); // 👈 3. Resend тохируулах
+
+// Админуудын жагсаалт (Энийг тусад нь helper function болгосон ч болно)
+const adminEmails = ["ochko0614@gmail.com", "yanjmaa76@gmail.com"];
+
+// ----------------------------------------------------------------------
+// 1. FRONTEND-Д ЗОРИУЛСАН: Тухайн өдрийн захиалгуудыг татах функц
+// ----------------------------------------------------------------------
+export async function getBookingsByDate(dateStr: string) {
+  if (!dateStr) return [];
+
+  // Ирсэн dateStr нь "2026-01-28" гэсэн форматтай байна гэж үзнэ.
+  // Үүнийг UTC цагаар тухайн өдрийн эхлэл ба төгсгөл болгож хувиргана.
+  
+  const startOfDay = new Date(`${dateStr}T00:00:00.000Z`);
+  const endOfDay = new Date(`${dateStr}T23:59:59.999Z`);
+
+  const bookings = await prisma.booking.findMany({
+    where: {
+      date: {
+        gte: startOfDay,
+        lte: endOfDay,
+      },
+      status: { not: 'cancelled' }
+    },
+    select: {
+      date: true,
+      duration: true,
+    }
+  });
+
+  return bookings;
+}
+
+// ----------------------------------------------------------------------
+// 2. ЗАХИАЛГА ҮҮСГЭХ ФУНКЦ (Шинэчлэгдсэн)
+// ----------------------------------------------------------------------
 export async function createBooking(prevState: any, formData: FormData) {
   const name = formData.get('name') as string
   const phone = formData.get('phone') as string
   const email = formData.get('email') as string
   const service = formData.get('service') as string
   const dateStr = formData.get('date') as string
-  
-  // 👇 Шинээр нэмэх:
   const guests = formData.get('guests') as string
   const notes = formData.get('notes') as string
+  // Хугацааг тоон утга болгож авах (Default 60 минут)
+  const duration = parseInt(formData.get('duration') as string) || 60;
 
-  if (!name || !phone || !service || !dateStr || !guests) { // guests-ийг шалгах
+  // Шалгалт
+  if (!name || !phone || !service || !dateStr || !guests || !email) {
     return { success: false, message: 'Бүх талбарыг бөглөнө үү' }
   }
 
+  const requestedDate = new Date(dateStr);
+
+  // SERVER-SIDE DAVHARTSAL SHALGAH (Аюулгүй байдлын үүднээс)
+  // Тухайн өдрийн бүх захиалгыг татаад, цаг давхцаж байгаа эсэхийг шалгана
+  const dayStart = new Date(requestedDate);
+  dayStart.setHours(0, 0, 0, 0);
+  const dayEnd = new Date(requestedDate);
+  dayEnd.setHours(23, 59, 59, 999);
+
+  const existingBookings = await prisma.booking.findMany({
+    where: {
+      date: { gte: dayStart, lte: dayEnd },
+      status: { not: 'cancelled' }
+    }
+  });
+
+  const requestedEnd = requestedDate.getTime() + duration * 60000;
+
+  const hasConflict = existingBookings.some(booking => {
+    const bookingStart = booking.date.getTime();
+    const bookingEnd = bookingStart + (booking.duration * 60000);
+
+    // Давхцаж буй нөхцөл: (StartA < EndB) && (EndA > StartB)
+    return requestedDate.getTime() < bookingEnd && requestedEnd > bookingStart;
+  });
+
+  if (hasConflict) {
+    return { success: false, message: 'Уучлаарай, сонгосон цаг дээр өөр захиалга орсон байна.' };
+  }
+
+  // Хадгалах
   try {
     await prisma.booking.create({
       data: {
@@ -25,44 +99,108 @@ export async function createBooking(prevState: any, formData: FormData) {
         phone,
         email,
         service,
-        date: new Date(dateStr),
-        guests, // 👇 Бааз руу бичих
-        notes,  // 👇 Бааз руу бичих
+        date: requestedDate,
+        guests,
+        notes,
+        duration, // Шинэ талбар
         status: 'pending'
       },
     })
 
-    revalidatePath('/booking') 
+
+    // 👇 2. И-МЭЙЛ ИЛГЭЭХ КОД (Шинээр нэмэх)
+    if (email) {
+      const formattedDate = format(requestedDate, 'yyyy-MM-dd');
+      const formattedTime = format(requestedDate, 'HH:mm');
+
+      await resend.emails.send({
+        from: 'Zoe Studio <onboarding@resend.dev>', // Resend-ийн туршилтын мэйл
+        to: [email], // Хэрэглэгчийн мэйл
+        subject: 'Таны захиалгыг хүлээж авлаа ✅',
+        react: EmailTemplate({
+          name,
+          date: formattedDate,
+          time: formattedTime,
+          service
+        }),
+      });
+    }
+
+    // B. 👇 АДМИН (ТАНЬ РУУ) ИЛГЭЭХ КОД (Шинээр нэмэх)
+    const formattedDate = format(requestedDate, 'yyyy-MM-dd');
+    const formattedTime = format(requestedDate, 'HH:mm');
+
+    // Энд өөрийнхөө имэйлийг бичээрэй 👇
+    const myAdminEmail = "ochko0614@gmail.com"; 
+
+    await resend.emails.send({
+        from: 'Zoe Studio <onboarding@resend.dev>',
+        to: [myAdminEmail], 
+        subject: `📸 Шинэ захиалга: ${name} (${service})`,
+        react: AdminEmailTemplate({ 
+            name, 
+            phone,
+            email,
+            service,
+            date: formattedDate, 
+            time: formattedTime, 
+            guests,
+            notes
+        }),
+    });
+
+    // Админ хуудас болон Захиалгын хуудсыг шинэчлэх (Сул цагууд өөрчлөгдөнө)
+    revalidatePath('/booking')
+    revalidatePath('/admin')
+
     return { success: true, message: 'Захиалга амжилттай илгээгдлээ!' }
-    
+
   } catch (error) {
     console.error('Booking error:', error)
     return { success: false, message: 'Захиалга хийхэд алдаа гарлаа.' }
   }
 }
 
+// ----------------------------------------------------------------------
+// 3. АДМИНЫ ФУНКЦУУД (Хэвээрээ)
+// ----------------------------------------------------------------------
 
-// 1. Төлөв өөрчлөх функц (Жишээ нь: pending -> confirmed)
+// Төлөв өөрчлөх
 export async function updateBookingStatus(id: string, newStatus: string) {
+  // 👇 ЭНЭ ХАМГААЛАЛТЫГ НЭМНЭ
+  const session = await auth();
+  const userEmail = (await (await fetch(`https://api.clerk.com/v1/users/${session.userId}`, {
+    headers: { Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}` }
+  })).json()).email_addresses[0].email_address;
+
+  // Жич: Clerk-ийн server action дотроос email авах жоохон төвөгтэй тул
+  // Хамгийн амархан нь зүгээр л session шалгах:
+  if (!session.userId) {
+    throw new Error("Unauthorized");
+  }
+  // Энд имэйл шалгах логик нэмбэл бүр сайн. Гэхдээ ядаж login хийсэн эсэхийг шалгах хэрэгтэй.
+
+
   try {
     await prisma.booking.update({
       where: { id },
       data: { status: newStatus },
     });
-    // Админ хуудсыг шинэчилж өөрчлөлтийг шууд харуулна
     revalidatePath("/admin");
+    revalidatePath("/booking"); // Цуцалбал цаг нь сулрах ёстой тул энд бас нэмлээ
   } catch (error) {
     console.error("Update error:", error);
   }
 }
 
-// 2. Захиалга устгах функц
+// Устгах
 export async function deleteBooking(id: string) {
   try {
     await prisma.booking.delete({
       where: { id },
     });
     revalidatePath("/admin");
+    revalidatePath("/booking"); // Устгавал цаг нь сулрах ёстой
   } catch (error) {
     console.error("Delete error:", error);
   }
