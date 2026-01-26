@@ -20,18 +20,17 @@ export default function Box({
 
   return (
     <div
-      className={`relative flex items-center justify-center p-8 rounded-lg shadow-xl overflow-hidden ${gradientClass}`}
-      style={{ minHeight: '300px' }} // Энэ бол зүгээр жишээ, та үүнийг өөрчилж болно
+      className={`relative flex items-center justify-center p-0 rounded-lg shadow-xl overflow-hidden ${gradientClass}`}
+      style={{ minHeight: '400px' }} // Энэ бол зүгээр жишээ, та үүнийг өөрчилж болно
     >
       {/* PNG зургийг байрлуулах */}
       <div className="absolute inset-0 flex items-center justify-center">
         <Image
           src={imageUrl}
           alt={imageAlt}
-          width={200} // Зургийн өргөн
-          height={200} // Зургийн өндөр
-          objectFit="contain" // Зургийг дотор нь бүрэн харагдуулах
-          className="opacity-70" // Зургийг арай бүдэг болгох (gradient-ийг тодотгохын тулд)
+          fill={true} // Зургийг бүрэн дүүргэх
+          objectFit="cover" // Зургийг дотор нь бүрэн харагдуулах
+          className="opacity-40" // Зургийг арай бүдэг болгох (gradient-ийг тодотгохын тулд)
         />
       </div>
 

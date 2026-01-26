@@ -4,10 +4,11 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 export function Accordions() {
     return (
-        <div className="w-200 mb-50">
+        <div className="w-full px-10 mb-50">
             <Accordion
                 type="single"
                 collapsible
@@ -43,7 +44,13 @@ export function Accordions() {
                     </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
-                    <AccordionTrigger>Return Policy</AccordionTrigger>
+                    <AccordionTrigger className="flex justify-start items-center gap-4">
+                        <Avatar>
+                            <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar> 
+                        <p>БҮХ ДАРУУЛСАН ЗУРГАА АВЧ БОЛОХ УУ?</p>
+                        </AccordionTrigger>
                     <AccordionContent className="flex flex-col gap-4 text-balance">
                         <p>
                             We stand behind our products with a comprehensive 30-day return
