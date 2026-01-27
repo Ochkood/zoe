@@ -152,7 +152,7 @@ export default function BookingForm() {
             {/* Цаг сонгох Grid */}
             <div>
               <Label className="block mb-3">
-                Эхлэх цаг {date ? `(${format(date, 'MM/dd')})` : ''}
+                Эхлэх цагаа сонгоно уу! {date ? `(${format(date, 'MM/dd')})` : ''}
               </Label>
               <div className="grid grid-cols-3 gap-2 max-h-60 overflow-y-auto pr-1">
                 {date && generateTimeSlots().map((slot, i) => {
@@ -180,7 +180,7 @@ export default function BookingForm() {
                     </Button>
                   );
                 })}
-                {!date && <p className="text-gray-400 text-sm col-span-3 text-center py-4">Эхлээд өдөр сонгоно уу</p>}
+                {!date && <p className="text-gray-400 text-sm col-span-3 text-center py-4">Эхлээд өдрөө сонгоно уу</p>}
               </div>
             </div>
           </div>
@@ -206,7 +206,7 @@ export default function BookingForm() {
                 
                 <div className="space-y-2">
                     <Label htmlFor="name">Таны нэр</Label>
-                    <Input id="name" name="name" required placeholder="Жишээ: Б.Батболд" className="bg-gray-50 focus:bg-white" />
+                    <Input id="name" name="name" required placeholder="Жнь: Б.Батболд" className="bg-gray-50 focus:bg-white" />
                 </div>
 
                 <div className="space-y-2">
@@ -215,7 +215,7 @@ export default function BookingForm() {
                 </div>
 
                 <div className="space-y-2">
-                    <Label htmlFor="email">И-мэйл хаяг</Label>
+                    <Label htmlFor="email">И-мэйл хаяг* (Баталгаажуулалт хийнэ)</Label>
                     <Input id="email" name="email" type="email" placeholder="name@example.com" className="bg-gray-50 focus:bg-white" />
                 </div>
 
@@ -225,16 +225,17 @@ export default function BookingForm() {
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
-                    <Label htmlFor="service">Үйлчилгээний төрөл</Label>
+                    <Label htmlFor="service">Үйлчилгээний багцаа сонгоно уу</Label>
                     <Select name="service" defaultValue="Portrait">
                         <SelectTrigger className="bg-gray-50 focus:bg-white">
                             <SelectValue placeholder="Үйлчилгээ сонгох" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="Portrait">Хөрөг зураг (Portrait)</SelectItem>
-                            <SelectItem value="Family">Гэр бүлийн зураг</SelectItem>
-                            <SelectItem value="Event">Эвент / Тэмдэглэлт өдөр</SelectItem>
-                            <SelectItem value="Commercial">Байгууллага / Реклам</SelectItem>
+                            <SelectItem value="Portrait">Энгийн 1 цаг <strong>(60к)</strong></SelectItem>
+                            <SelectItem value="Family">Гэр бүлийн багц <strong>(100к)</strong></SelectItem>
+                            <SelectItem value="Love247">Хосын багц <strong>(70к)</strong></SelectItem>
+                            <SelectItem value="Birthday">Төрсөн өдрийн багц <strong>(70к)</strong></SelectItem>
+                            <SelectItem value="50k">Зураг угаалгахгүй <strong>(50к)</strong></SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
@@ -244,7 +245,7 @@ export default function BookingForm() {
                     <Textarea 
                         id="notes" 
                         name="notes" 
-                        placeholder="Жишээ нь: Хувцас солих өрөө хэрэгтэй..." 
+                        placeholder="Нэмэлт мэдээлэл бичих..." 
                         className="bg-gray-50 focus:bg-white min-h-25"
                     />
                 </div>

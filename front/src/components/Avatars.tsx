@@ -48,7 +48,7 @@ export function Avatars() {
                     <AvatarFallback>ER</AvatarFallback>
                 </Avatar>
             </div>
-            <div>
+            <div className="text-white">
                 +1k Happy users
             </div>
         </div>

@@ -34,7 +34,7 @@ export const AdminEmailTemplate: React.FC<Readonly<AdminEmailProps>> = ({
       <h3 style={{ marginTop: 0, color: '#4b5563' }}>Захиалгын мэдээлэл:</h3>
       
       <p style={{ margin: '8px 0' }}><strong>📅 Огноо:</strong> {date} | {time}</p>
-      <p style={{ margin: '8px 0' }}><strong>📷 Үйлчилгээ:</strong> {service}</p>
+      <p style={{ margin: '8px 0' }}><strong>📷 Багц:</strong> {service}</p>
       <p style={{ margin: '8px 0' }}><strong>👥 Хүний тоо:</strong> {guests}</p>
       <hr style={{ border: 'none', borderTop: '1px solid #e5e7eb', margin: '15px 0' }} />
       
