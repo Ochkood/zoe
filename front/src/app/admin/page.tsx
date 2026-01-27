@@ -123,7 +123,7 @@ export default async function AdminPage({
                                     <div className="flex items-center gap-2 text-gray-500 text-xs">
                                         <Mail className="w-3.5 h-3.5 text-gray-400" /> 
                                         {booking.email ? (
-                                            <span className="truncate max-w-[150px]" title={booking.email}>{booking.email}</span>
+                                            <span className="truncate max-w-37.5" title={booking.email}>{booking.email}</span>
                                         ) : '-'}
                                     </div>
                                 </div>

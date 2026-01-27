@@ -3,6 +3,7 @@
 import { Resend } from 'resend'; // 👈 1. Import нэмэх
 import { EmailTemplate } from '@/components/email-template'; // 👈 2. Template нэмэх
 import { AdminEmailTemplate } from '@/components/admin-email-template';
+import { EmailConfirmedTemplate } from '@/components/email-confirmed-template'; // 👈 Шинэ загвараа import хийнэ
 import { format } from 'date-fns';
 import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
@@ -167,29 +168,51 @@ export async function createBooking(prevState: any, formData: FormData) {
 
 // Төлөв өөрчлөх
 export async function updateBookingStatus(id: string, newStatus: string) {
-  // 👇 ЭНЭ ХАМГААЛАЛТЫГ НЭМНЭ
+  // 1. ХАМГААЛАЛТ: Нэвтэрсэн хэрэглэгч мөн эсэхийг шалгана
   const session = await auth();
-  const userEmail = (await (await fetch(`https://api.clerk.com/v1/users/${session.userId}`, {
-    headers: { Authorization: `Bearer ${process.env.CLERK_SECRET_KEY}` }
-  })).json()).email_addresses[0].email_address;
 
-  // Жич: Clerk-ийн server action дотроос email авах жоохон төвөгтэй тул
-  // Хамгийн амархан нь зүгээр л session шалгах:
   if (!session.userId) {
-    throw new Error("Unauthorized");
+    throw new Error("Unauthorized: Та нэвтрэх шаардлагатай.");
   }
-  // Энд имэйл шалгах логик нэмбэл бүр сайн. Гэхдээ ядаж login хийсэн эсэхийг шалгах хэрэгтэй.
-
 
   try {
-    await prisma.booking.update({
+    // 2. DATABASE ШИНЭЧЛЭХ
+    // update функц нь шинэчлэгдсэн мэдээллийг буцаадаг (updatedBooking)
+    const updatedBooking = await prisma.booking.update({
       where: { id },
       data: { status: newStatus },
     });
-    revalidatePath("/admin");
-    revalidatePath("/booking"); // Цуцалбал цаг нь сулрах ёстой тул энд бас нэмлээ
+
+    // 3. ИМЭЙЛ ИЛГЭЭХ (Зөвхөн 'confirmed' болсон үед)
+    if (newStatus === 'confirmed' && updatedBooking.email) {
+      
+      // Огноог уншихад эвтэйхэн болгож форматлах
+      const formattedDate = format(new Date(updatedBooking.date), 'yyyy-MM-dd');
+      const formattedTime = format(new Date(updatedBooking.date), 'HH:mm');
+
+      await resend.emails.send({
+        // Хэрэв домэйн холбоогүй бол 'onboarding@resend.dev' ашиглана
+        from: 'Zoe Studio <onboarding@resend.dev>', 
+        to: [updatedBooking.email],
+        subject: '✅ Таны захиалга баталгаажлаа',
+        react: EmailConfirmedTemplate({ 
+          name: updatedBooking.name, 
+          date: formattedDate, 
+          time: formattedTime, 
+          service: updatedBooking.service 
+        }),
+      });
+      
+      console.log(`Confirmation email sent to ${updatedBooking.email}`);
+    }
+
+    // 4. ХУУДСУУДЫГ ШИНЭЧЛЭХ
+    revalidatePath("/admin");   // Админ дээр төлөв нь солигдож харагдана
+    revalidatePath("/booking"); // Захиалгын хуудсан дээр цаг нь түгжигдэнэ (эсвэл сулрана)
+
   } catch (error) {
     console.error("Update error:", error);
+    throw new Error("Failed to update booking");
   }
 }
 

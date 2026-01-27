@@ -245,7 +245,7 @@ export default function BookingForm() {
                         id="notes" 
                         name="notes" 
                         placeholder="Жишээ нь: Хувцас солих өрөө хэрэгтэй..." 
-                        className="bg-gray-50 focus:bg-white min-h-[100px]"
+                        className="bg-gray-50 focus:bg-white min-h-25"
                     />
                 </div>
             </div>
