@@ -14,7 +14,7 @@ const col2Images = allImages.slice(10, 20); // review11 - review20
 // Текстэн сэтгэгдлүүд (Хэвээрээ)
 const reviews = [
   { name: "Сара К.", text: "Гайхалтай туршлага! Зургууд үнэхээр гоё гарсан, багийнхан маш мэргэжлийн байлаа." },
-  { name: "Жон Д.", text: "ZOE студитэй ажиллахад таатай байлаа. Бидний нандин мөчүүдийг төгс буулгаж чадсан." },
+  { name: "Инфлүсэр Анна Заяа", text: "ZOE студитэй ажиллахад таатай байлаа. Бидний нандин мөчүүдийг төгс буулгаж чадсан." },
   { name: "Эмили Р.", text: "Маш их санал болгож байна! Бүтээлч сэтгэлгээтэй, зураг авалтын үйл явц хөгжилтэй байсан." },
   { name: "Мишээл Б.", text: "Миний үйлчлүүлж байсан хамгийн шилдэг студи. Чанар бол ярих юмгүй." },
   { name: "Анна С.", text: "Маш найрсаг орчин, өндөр чанартай үр дүн. Дахин заавал ирнээ!" },
@@ -23,12 +23,12 @@ const duplicatedReviews = [...reviews, ...reviews];
 
 export default function Reviews() {
   return (
-    <section className="py-20 bg-gray-50 overflow-hidden">
+    <section className="py-10 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
           {/* 1. ЗҮҮН ТАЛ: ЗУРАГНУУД (Vertical Infinite Scroll) */}
-          <div className="relative h-150 w-full hidden lg:block overflow-hidden rounded-3xl bg-white/50 border border-gray-100">
+          <div className="relative h-150 w-full lg:block overflow-hidden rounded-3xl bg-white/50 border border-gray-100">
             
             {/* Дээд ба Доод талын уусгалт (Fade Effect) */}
             <div className="absolute top-0 left-0 w-full h-24 bg-linear-to-b from-gray-50 to-transparent z-20 pointer-events-none" />
@@ -102,7 +102,7 @@ export default function Reviews() {
           <div className="flex flex-col justify-center">
             
             <div className="mb-10 text-left">
-                <span className="text-blue-600 font-bold tracking-wider text-sm uppercase">Сэтгэгдэл</span>
+                <span className="text-blue-600 font-bold tracking-wider text-sm uppercase border-l-blue-600 border-l-4 pl-2">OUR COMMUNITY</span>
                 <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mt-2 leading-tight">
                     Бидний тухай <br/> 
                     <span className="text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600">

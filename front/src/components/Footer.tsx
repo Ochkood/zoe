@@ -32,7 +32,7 @@ export default function Footer() {
                 <Link href="/booking" className="hover:text-white transition-colors">Цаг захиалах</Link>
               </li>
               <li>
-                <Link href="/pricing" className="hover:text-white transition-colors">Үнийн санал</Link>
+                <Link href="/#pricing" className="hover:text-white transition-colors">Үнийн санал</Link>
               </li>
             </ul>
           </div>
@@ -58,7 +58,7 @@ export default function Footer() {
             <h3 className="text-lg font-bold mb-6">Биднийг дагаарай</h3>
             <div className="flex gap-4">
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/profile.php?id=61571590557273" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300"
@@ -66,7 +66,7 @@ export default function Footer() {
                 <Facebook className="w-5 h-5" />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/zoe_photo_studio" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center text-gray-400 hover:bg-pink-600 hover:text-white transition-all duration-300"

@@ -15,13 +15,12 @@ export default function Home() {
         <main className="flex-grow">
           <TopArea />
           <Reviews />
-          <Service />
-          <ThreeBox />
+          {/* <Service /> */}
+          {/* <ThreeBox /> */}
           <Pricing />
           <Accordions />
         </main>
-        
-        <Footer /> {/* 👈 Энд байршуулна */}
+        <Footer /> 
     </div>
   );
 }

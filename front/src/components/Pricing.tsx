@@ -6,11 +6,10 @@ import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-// Багцуудын мэдээлэл
 const packages = [
   {
     category: "basic",
-    name: "Багц 1: Энгийн",
+    name: "Багц 1: Энгийн 30 минут",
     duration: "30 минут",
     price: "40,000₮",
     features: ["13x18 хэмжээтэй зураг 2ш"],
@@ -18,11 +17,19 @@ const packages = [
   },
   {
     category: "basic",
-    name: "Багц 2: Энгийн",
+    name: "Багц 2: Энгийн 1 цаг",
     duration: "60 минут",
     price: "60,000₮",
     features: ["А4 хэмжээтэй зураг 1ш", "13x18 хэмжээтэй зураг 2ш"],
     highlight: true,
+  },
+  {
+    category: "basic",
+    name: "Багц 3: Social Media",
+    duration: "60 минут",
+    price: "50,000₮",
+    features: ["Зураг угаалгахгүйгээр өндөр чанартай бүх зургуудаа авах"],
+    highlight: false,
   },
   {
     category: "special",
@@ -53,13 +60,7 @@ const packages = [
     name: "Багц 6: Гэр бүл",
     duration: "60 минут",
     price: "100,000₮",
-    features: [
-      "20x30 жаазтай 1ш",
-      "20x30 жаазгүй 1ш",
-      "13x18 жаазтай 2ш",
-      "Хөргөгчний наалт (2 талдаа зурагтай) 1ш",
-      "Түлхүүрийн оосор (2 талдаа зурагтай) 1ш",
-    ],
+    features: ["20x30 жаазтай 1ш", "20x30 жаазгүй 1ш", "13x18 жаазтай 2ш", "Хөргөгчний наалт 1ш", "Түлхүүрийн оосор 1ш"],
     highlight: true,
   },
   {
@@ -82,17 +83,14 @@ const packages = [
 
 export default function Pricing() {
   const [activeTab, setActiveTab] = useState("basic");
-
   const filteredPackages = packages.filter((pkg) => pkg.category === activeTab);
 
   return (
-    <section id="pricing" className="py-20 px-4 md:px-8 max-w-7xl mx-auto bg-gray-50/50">
+    <section id="pricing" className="py-10 px-4 md:px-8 max-w-7xl mx-auto bg-gray-50/50 scroll-mt-24">
       <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-5xl font-bold mb-4">Үнийн санал</h2>
-        <p className="text-gray-600">Танд болон таны дотны хүмүүст тохирох багцыг сонгоорой.</p>
+        <h2 className="font-bold text-transparent bg-clip-text bg-linear-to-r from-blue-600 to-purple-600 text-3xl">Танд болон таны дотны хүмүүст тохирох багцыг сонгоорой.</h2>
       </div>
 
-      {/* Tabs */}
       <div className="flex justify-center gap-2 mb-10 flex-wrap">
         {[
           { id: "basic", label: "Энгийн Багц" },
@@ -103,7 +101,7 @@ export default function Pricing() {
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
             className={cn(
-              "px-6 py-2 rounded-full text-sm font-medium transition-all",
+              "px-6 py-2 rounded-full text-sm font-medium transition-all hover:cursor-pointer",
               activeTab === tab.id
                 ? "bg-black text-white shadow-lg"
                 : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
@@ -114,7 +112,6 @@ export default function Pricing() {
         ))}
       </div>
 
-      {/* Pricing Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
         {filteredPackages.map((pkg, index) => (
           <div
@@ -160,13 +157,13 @@ export default function Pricing() {
               )}
               asChild
             >
+              {/* 👇 URL Parameter-ийг хассан */}
               <Link href="/booking">Захиалах</Link>
             </Button>
           </div>
         ))}
       </div>
       
-      {/* Additional Info Link */}
       <div className="mt-10 text-center">
         <p className="text-sm text-gray-500">
           * Нэмэлт үйлчилгээ (Жааз, цомог, хэвлэлт) болон бусад дэлгэрэнгүйг студи дээр ирж танилцана уу.

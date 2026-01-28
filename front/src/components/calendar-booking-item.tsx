@@ -43,7 +43,7 @@ export function CalendarBookingItem({ booking }: { booking: Booking }) {
         </button>
       </DialogTrigger>
       
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-100">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <User className="w-5 h-5 text-gray-500" />

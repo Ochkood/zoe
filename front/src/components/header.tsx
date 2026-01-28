@@ -2,12 +2,12 @@
 
 import React from "react";
 import Link from "next/link";
-import { Menu } from "lucide-react"; // lucide-react суулгасан байх шаардлагатай
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { CalendarDays, Menu } from "lucide-react"; // lucide-react суулгасан байх шаардлагатай
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 
 export default function Header() {
   const menuItems = [
-    { name: "Үнийн санал", href: "/pricing" },
+    { name: "Үнийн санал", href: "/#pricing" },
     { name: "Хэрэгсэл", href: "/tools" },
   ];
 
@@ -33,8 +33,8 @@ export default function Header() {
           ))}
           <Link
             href="/booking"
-            className="bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-all"
-          >
+            className="flex items-center gap-2 bg-black text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition-all"
+          ><CalendarDays size={20} />
             Цаг Захиалах
           </Link>
         </nav>
@@ -43,18 +43,23 @@ export default function Header() {
         <div className="md:hidden flex items-center gap-2">
           <Link
             href="/booking"
-            className="bg-black text-white px-4 py-2 rounded-full text-xs font-medium"
-          >
+            className="flex items-center gap-2 bg-black text-white px-4 py-2 rounded-full text-xs font-medium"
+          ><CalendarDays size={15} />
             Захиалах
           </Link>
           
           <Sheet>
             <SheetTrigger asChild>
-              <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+              <button suppressHydrationWarning={true} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
                 <Menu className="h-6 w-6" />
               </button>
             </SheetTrigger>
             <SheetContent side="right" className="w-62.5 sm:w-75">
+
+              <SheetTitle className="text-xl font-bold px-5 mt-4">
+                Цэс
+              </SheetTitle>
+
               <nav className="flex flex-col gap-4 px-5 mt-10">
                 {menuItems.map((item) => (
                   <Link

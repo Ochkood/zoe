@@ -7,7 +7,7 @@ import {
 
 export function Accordions() {
     return (
-        <section className="w-full px-4 md:px-0 max-w-4xl mx-auto mb-32">
+        <section className="w-full py-10 px-4 md:px-0 max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-10">Түгээмэл Асуултууд & Санамж</h2>
             
             <Accordion type="single" collapsible className="w-full space-y-4">
@@ -18,20 +18,20 @@ export function Accordions() {
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 leading-relaxed">
                         <ul className="list-disc pl-5 space-y-2">
-                            <li>Манайд <strong>гадаад гуталтай оруулахгүй</strong> тул та зураг авалтанд өмсөх гуталны улыг сайн цэвэрлэж ирэх эсвэл студийн шаахайг ашиглах боломжтой.</li>
+                            <li>Манайд гадуур өмссөн гуталтай оруулахгүй тул та зураг авалтанд өмсөх цэвэрхэн гуталтай ирэх эсвэл студийн шаахайг ашиглах боломжтой.</li>
                             <li>Зураг авалтанд ирэхдээ солих хувцас, нүүр будалтаа бэлдэж ирээрэй. Манайд нүүр будалтын үйлчилгээ байхгүй.</li>
-                            <li>Цагаасаа хоцрохгүй байхыг хүсье. Хоцорсон тохиолдолд таны цагаас хасагдана.</li>
+                            <li>Цагаасаа хоцрохгүй байхыг хүсье.</li>
                         </ul>
                     </AccordionContent>
                 </AccordionItem>
 
                 <AccordionItem value="item-2" className="bg-white px-6 rounded-xl border border-gray-100 shadow-sm">
                     <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left">
-                        2. Дижитал зураг болон хугацааны талаар?
+                        2. Бүх зургаа чанартайгаар нь авч болох уу?
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 leading-relaxed">
+                        Та Iphone, Ipad ашигладаг бол бүх зургаа өндөр чанартайгаар нь <strong>AirDrop</strong>-р маш хялбархан хүлээн авах боломжтой.
                         Та байнга ашигладаг и-мэйл хаягаа бүртгүүлээрэй. Бүртгүүлсэн и-мэйл хаяг руу бүх зураг илгээгдэнэ. 
-                        <strong>Анхааруулга:</strong> Зураг хадгалагдахгүй тул 3 хоногийн дотор татаж авна уу.
                     </AccordionContent>
                 </AccordionItem>
 
