@@ -8,47 +8,49 @@ import {
 export function Accordions() {
     return (
         <section className="w-full px-4 md:px-0 max-w-4xl mx-auto mb-32">
-            <h2 className="text-3xl font-bold text-center mb-10">Түгээмэл Асуултууд</h2>
+            <h2 className="text-3xl font-bold text-center mb-10">Түгээмэл Асуултууд & Санамж</h2>
             
             <Accordion type="single" collapsible className="w-full space-y-4">
                 
                 <AccordionItem value="item-1" className="bg-white px-6 rounded-xl border border-gray-100 shadow-sm">
-                    <AccordionTrigger className="font-semibold text-lg hover:no-underline">
-                        1. Цаг захиалгаа хэрхэн баталгаажуулах вэ?
+                    <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left">
+                        1. Зураг авалтанд ирэхдээ юуг анхаарах вэ?
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 leading-relaxed">
-                        Та сайтаар цагаа сонгож захиалга өгсний дараа таны имэйл хаяг руу төлбөрийн мэдээлэл очно. 
-                        Урьдчилгаа 50% шилжүүлснээр таны цаг автоматаар баталгаажих ба бид хариу имэйл илгээнэ.
+                        <ul className="list-disc pl-5 space-y-2">
+                            <li>Манайд <strong>гадаад гуталтай оруулахгүй</strong> тул та зураг авалтанд өмсөх гуталны улыг сайн цэвэрлэж ирэх эсвэл студийн шаахайг ашиглах боломжтой.</li>
+                            <li>Зураг авалтанд ирэхдээ солих хувцас, нүүр будалтаа бэлдэж ирээрэй. Манайд нүүр будалтын үйлчилгээ байхгүй.</li>
+                            <li>Цагаасаа хоцрохгүй байхыг хүсье. Хоцорсон тохиолдолд таны цагаас хасагдана.</li>
+                        </ul>
                     </AccordionContent>
                 </AccordionItem>
 
                 <AccordionItem value="item-2" className="bg-white px-6 rounded-xl border border-gray-100 shadow-sm">
-                    <AccordionTrigger className="font-semibold text-lg hover:no-underline">
-                        2. Хэдэн төрлийн фонтой вэ? Бүгдийг нь ашиглаж болох уу?
+                    <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left">
+                        2. Дижитал зураг болон хугацааны талаар?
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 leading-relaxed">
-                        Манай студи цагаан, саарал, хар, болон бүтээлч өнгөлөг (ягаан, цэнхэр) нийт 5 төрлийн фонтой. 
-                        Та захиалсан цагтаа багтаан хүссэн фоноо сольж ашиглах бүрэн боломжтой.
+                        Та байнга ашигладаг и-мэйл хаягаа бүртгүүлээрэй. Бүртгүүлсэн и-мэйл хаяг руу бүх зураг илгээгдэнэ. 
+                        <strong>Анхааруулга:</strong> Зураг хадгалагдахгүй тул 3 хоногийн дотор татаж авна уу.
                     </AccordionContent>
                 </AccordionItem>
 
                 <AccordionItem value="item-3" className="bg-white px-6 rounded-xl border border-gray-100 shadow-sm">
-                    <AccordionTrigger className="font-semibold text-lg hover:no-underline">
-                        3. Бүх даруулсан зургаа авч болох уу?
+                    <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left">
+                        3. Цаг цуцлах болон солих нөхцөл юу вэ?
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 leading-relaxed">
-                        Тийм ээ. Бид зураг авалтын бүх түүхий (raw) файлыг танд Google Drive холбоосоор өгнө. 
-                        Харин засвартай зургийг таны сонгосон багцаас хамааран тодорхой тоогоор янзалж өгдөг.
+                        Хэрэв та цагаа цуцлах эсвэл солих шаардлагатай бол <strong>24 цагийн өмнө</strong> бидэнд мэдэгдэх шаардлагатайг анхаарна уу.
+                        Цагаасаа хоцорсон тохиолдолд буцаалт хийхгүй.
                     </AccordionContent>
                 </AccordionItem>
 
                 <AccordionItem value="item-4" className="bg-white px-6 rounded-xl border border-gray-100 shadow-sm">
-                    <AccordionTrigger className="font-semibold text-lg hover:no-underline">
-                        4. Хувцас солих өрөө байгаа юу?
+                    <AccordionTrigger className="font-semibold text-lg hover:no-underline text-left">
+                        4. Студид ямар хэрэгслүүд байгаа вэ?
                     </AccordionTrigger>
                     <AccordionContent className="text-gray-600 leading-relaxed">
-                        Тийм, бид хувцас солих тусгай өрөө болон нүүр будах хэсэгтэй. 
-                        Та цагаасаа 10-15 минутын өмнө ирж бэлтгэлээ хангах боломжтой.
+                        Манайд 9 төрлийн фон, 70-80 төрлийн нүдний шил, 60-70 төрлийн үсний гоёл, обручка, төрсөн өдрийн бялуу, тоотой шаар, титэм болон олон төрлийн цэцэгнүүд бэлэн байгаа. Та хүссэн чимэглэл, хэрэгслээ сонгон ашиглах боломжтой.
                     </AccordionContent>
                 </AccordionItem>
 

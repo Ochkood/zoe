@@ -4,7 +4,8 @@ import Reviews from "@/components/Reviews";
 import Service from "@/components/ServiceCard";
 import ThreeBox from "@/components/ThreeBox";
 import TopArea from "@/components/TopArea";
-import Footer from "@/components/Footer"; // 👈 Import хийнэ
+import Footer from "@/components/Footer";
+import Pricing from "@/components/Pricing";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
           <Reviews />
           <Service />
           <ThreeBox />
+          <Pricing />
           <Accordions />
         </main>
         

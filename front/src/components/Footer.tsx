@@ -43,16 +43,13 @@ export default function Footer() {
             <ul className="space-y-4 text-sm text-gray-400">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-gray-500 shrink-0" />
-                <span>БЗД, Кино үйлдвэр, Отгонтэнгэр их сургуулийн зүүн талд, CENTURY APARTMENT барилгын 4 давхарт</span>
+                <span>БЗД, Кино үйлдвэр, Отгонтэнгэр ИС-иас зүүн тийш 100м, CENTURY APARTMENT, 4 давхарт</span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-gray-500 shrink-0" />
-                <a href="tel:+97688110000" className="hover:text-white transition-colors">+976 9111-4506</a>
+                <a href="tel:91114506" className="hover:text-white transition-colors">9111-4506</a>
               </li>
-              <li className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-gray-500 shrink-0" />
-                <a href="mailto:info@zoestudio.mn" className="hover:text-white transition-colors">zoestudio08@gmail.com</a>
-              </li>
+               {/* ... бусад мэдээлэл */}
             </ul>
           </div>
 

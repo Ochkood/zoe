@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Calendar, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Calendar, Settings, LogOut, ListFilter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { UserButton, useUser } from "@clerk/nextjs";
@@ -13,6 +13,7 @@ export function AdminSidebar({ className }: { className?: string }) {
 
   const links = [
     { href: "/admin", label: "Захиалгууд", icon: LayoutDashboard },
+    { href: "/admin/bookings", label: "Жагсаалт", icon: ListFilter }, // 👈 Шинэ хуудас
     { href: "/admin/calendar", label: "Календарь", icon: Calendar }, // 👈 Шинэ цэс
   ];
 
