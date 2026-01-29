@@ -12,7 +12,7 @@ export default function Home() {
     <div className="flex flex-col min-h-screen bg-[rgba(0,0,0,0.10)] font-sans dark:bg-black">
         <Header />
         
-        <main className="flex-grow">
+        <main className="grow">
           <TopArea />
           <Reviews />
           {/* <Service /> */}

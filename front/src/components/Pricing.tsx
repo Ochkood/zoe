@@ -33,7 +33,7 @@ const packages = [
   },
   {
     category: "special",
-    name: "Багц 3: Найзууд",
+    name: "Багц 4: Найзууд",
     duration: "60 минут",
     price: "60,000₮",
     features: ["13x18 хэмжээтэй зураг 3-6ш"],
@@ -41,7 +41,7 @@ const packages = [
   },
   {
     category: "special",
-    name: "Багц 4: Хос",
+    name: "Багц 5: Хос",
     duration: "60 минут",
     price: "70,000₮",
     features: ["13x18 жаазтай 2ш", "13x18 хэмжээтэй зураг 2ш"],
@@ -49,7 +49,7 @@ const packages = [
   },
   {
     category: "special",
-    name: "Багц 5: Төрсөн өдөр/Жирэмсэн",
+    name: "Багц 6: Төрсөн өдөр/Жирэмсэн",
     duration: "60 минут",
     price: "70,000₮",
     features: ["15x20 шилэн жаазтай 1ш", "13x18 хэмжээтэй зураг 2ш"],
@@ -57,7 +57,7 @@ const packages = [
   },
   {
     category: "family",
-    name: "Багц 6: Гэр бүл",
+    name: "Багц 7: Гэр бүл",
     duration: "60 минут",
     price: "100,000₮",
     features: ["20x30 жаазтай 1ш", "20x30 жаазгүй 1ш", "13x18 жаазтай 2ш", "Хөргөгчний наалт 1ш", "Түлхүүрийн оосор 1ш"],
@@ -65,7 +65,7 @@ const packages = [
   },
   {
     category: "family",
-    name: "Багц 7: Гэр бүл XL",
+    name: "Багц 8: Гэр бүл XL",
     duration: "60 минут",
     price: "125,000₮",
     features: ["30x40 жаазтай 1ш", "20x30 жаазтай 2ш", "13x18 жаазгүй 2ш"],
@@ -73,7 +73,7 @@ const packages = [
   },
   {
     category: "family",
-    name: "Багц 8: Гэр бүл Premium",
+    name: "Багц 9: Гэр бүл Premium",
     duration: "60 минут",
     price: "150,000₮",
     features: ["30x40 модон зураг 1ш", "20x30 модон зураг 2ш", "13x18 жаазгүй 2ш"],
